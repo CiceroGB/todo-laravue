@@ -16,21 +16,21 @@ services:
     networks:
       - todo
 
-  db:
+  todo-db:
     image: mysql
     container_name: todo-db
-    restart: unless-stopped
+    restart: always
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+    ports:
+      - 3306:3306
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
-    networks:
-      - todo
+      - ./my-datavolume s:/var/lib/mysql
+
 
   nginx:
     image: nginx:alpine
@@ -47,3 +47,7 @@ services:
 networks:
   todo:
     driver: bridge
+
+volumes:
+  my-datavolume:
+    driver: local
