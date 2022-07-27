@@ -29,7 +29,7 @@ services:
       - 3306:3306
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
-      - ./my-datavolume s:/var/lib/mysql
+      - ./my-datavolume:/var/lib/mysql
 
 
   nginx:
